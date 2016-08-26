@@ -1,0 +1,90 @@
+<?php
+error_reporting(E_ALL);
+include_once "hgnps_connect.php";
+
+
+class create_album extends connect{
+
+	public $albumname;
+	public $albumdescription;
+	public $photo;
+	public $albumdate;
+	public $errors=array();
+	
+
+public function insertparameters($albumname,$albumdescription,$photo,$albumdate){
+     $this->albumdate= date("Y-m-d:");
+	$stmt= $this->mysqli->prepare(('INSERT into album_table(albumname,albumdescription,photo,albumdate) VALUES(?,?,?,NOW())'));
+	  $stmt->bind_param('sss',$albumname,$albumdescription,$photo);
+      if ($stmt->execute()===TRUE){
+		  header('location:index.php'); 
+      exit;
+        } else{echo "sorry,there was a problem uploading your file.";}
+        
+		
+
+	//}
+}
+	//return album data
+	
+public function getparameters(){
+	$args = array(
+    "albumname"=>$this->albumname,
+    "albumdescription" => $this->albumdescription,
+    "photo" => $this->photo,
+    "albumdate" => $this->albumdate
+  
+ );
+		}
+	
+//Getters and setters
+	public function getAlbumname(){
+		return $this->albumname;
+		}
+	public function setAlbumname($albumname){
+		$this->albumname=$albumname;
+		}
+	public function getAlbumdescription(){
+		return $this->albumdescription;
+		}
+	public function setAlbumdescription($albumdescription){
+	$this->albumdescription=$albumdescription;
+		}
+	public function getphoto(){
+		return $this->photo;
+		}
+	public function setPhoto($photo){
+		$this->photo=$photo;
+		}
+		
+		
+	public function getalbumdate(){
+	return $this->albumdate;
+		}
+	public function setalbumdate($albumdate){
+	$this->albumdate = $albumdate;
+		}
+		
+	}
+
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+
+
+?>
+
+
+
+
+
+
